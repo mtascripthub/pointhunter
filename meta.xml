@@ -1,0 +1,6 @@
+<meta>
+	<info name="pointhunter" />
+	<script src="sourceC.lua" type="client" />
+	<file src="ding.mp3" />
+	<file src="levelup.mp3" />
+</meta>
