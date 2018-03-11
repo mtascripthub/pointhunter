@@ -1,6 +1,7 @@
 local sx, sy = guiGetScreenSize()
 local pointSize = 20
 
+local cursorx, cursory = 0, 0
 -- Point class
 local points = {}
 Point = {}
@@ -33,7 +34,7 @@ addEventHandler('onClientResourceStart', resourceRoot, function()
 	showChat(false)
 	showCursor(true)
 	startTick = getTickCount()
-	local newPoint = Point:create(100, 100)
+	Point:create(100, 100)
 	setTimer(setRandomPositions, 3000, 0)
 end)
 
@@ -55,6 +56,9 @@ end
 
 
 function renderGame()
+	cursorx, cursory = getCursorPosition()
+	cursorx, cursory = cursorx*sx, cursory*sy
+	
 	timeLoad = playedTicks() % 3000
 	
 	dxDrawRectangle(0, 0, sx, sy, tocolor(0,0,0,255))
@@ -75,18 +79,12 @@ function drawLoading()
 end
 
 function mouseOnBox(x, y, width, height)
-	local cursorx, cursory = getCursorPosition()
-	cursorx, cursory = cursorx*sx, cursory*sy
-	
-	if (cursorx >= x and cursorx <= x + width) and (cursory >= y and cursory <= y + height) then
-		return true
-	end
-	return false
+	return (cursorx >= x and cursorx <= x + width) and (cursory >= y and cursory <= y + height)
 end
 
 function checkScore()
 	if (#points < math.floor(score / 10) + 1) then
-		local newPoint = Point:create(100, 100)
+		Point:create(100, 100)
 		playSound('levelup.mp3')
 	end
 end
@@ -94,12 +92,11 @@ end
 addEventHandler('onClientClick', root, function(button, state, cursorx, cursory)
 	if (button == 'left' and state == 'down') then
 		for _, v in pairs(points) do
-			if (mouseOnBox(v.x, v.y, pointSize, pointSize) and v.visible) then
+			if (v.visible and mouseOnBox(v.x, v.y, pointSize, pointSize)) then
 				playSound('ding.mp3')
 				score = score + 1
 				checkScore()
 				v.visible = false
-				--break
 			end
 		end
 	end
