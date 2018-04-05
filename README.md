@@ -5,7 +5,7 @@ Check your reflexes!
 [YouTube video](https://www.youtube.com/watch?v=7tF5LSWwPgY)
 
 ## Author(s)
-* **Milan Szekely** - *Initial work* - [MakroBox](https://github.com/MakroBox)
+* **Milan Szekely** - *Initial work* - [szekelymilan](https://github.com/szekelymilan)
 * **Pirulax** - *Fixed tweakings* - [Pirulax](https://github.com/Pirulax)
 
 ## License
